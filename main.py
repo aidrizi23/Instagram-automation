@@ -116,24 +116,21 @@ class InstagramBot:
             return 0
 
     def unfollow_users(self, amount=10, delay_range=(15, 30)):
-        """Unfollow users that you're following but who don't follow you back"""
+        """unfollow users that youre following but who dont follow you back"""
         try:
-            # Get your user ID
+
             user_id = self.client.user_id
 
-            # Get users you follow
+
             following = self.client.user_following(user_id)
             logger.info(f"You are following {len(following)} users")
 
-            # Get users who follow you
             followers = self.client.user_followers(user_id)
             logger.info(f"You have {len(followers)} followers")
 
-            # Find users who don't follow you back
             non_followers = [user_id for user_id in following if user_id not in followers]
-            logger.info(f"Found {len(non_followers)} users who don't follow you back")
+            logger.info(f"Found {len(non_followers)} users who dont follow you back")
 
-            # Shuffle and limit to requested amount
             random.shuffle(non_followers)
             non_followers = non_followers[:amount]
 
